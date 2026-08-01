@@ -1,0 +1,28 @@
+name: Extrator Roadmap
+
+on:
+  workflow_dispatch:        # permite rodar manualmente
+  schedule:
+    - cron: '0 8 * * *'     # exemplo: todo dia às 8h (UTC)
+
+jobs:
+  run-extrator:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Recriar credenciais.json
+        run: echo '${{ secrets.CREDENCIAIS_JSON }}' > credenciais.json
+
+      - name: Rodar script
+        run: python extrator_roadmap.py
