@@ -1,7 +1,12 @@
 import pandas as pd
+import dotenv
+import os
 import gspread
+import json
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
+
+dotenv.load_dotenv()
 
 # ===== CONFIGURAÇÕES E AUTENTICAÇÃO =====
 SCOPES = [
@@ -14,8 +19,8 @@ client = gspread.authorize(creds)
 drive_service = build("drive", "v3", credentials=creds)
 
 # IDs do Google Drive / Sheets
-ID_PASTA_ROADMAPS = ["1ZmYO3gh34Tn3C5hpU2USlEaQ8p7M1zmo","1vHNT56ZpkWmmZt8Zb8Y1SlqYuJyrj82V"]
-ID_DESTINO = "1s2xGdJrJHrq95VPtVWxtdjmAYNQ0qdTsYgOnypBfRIs"
+ID_PASTA_ROADMAPS = json.loads(os.getenv("ID_PASTA_ROADMAPS"))
+ID_DESTINO = os.getenv("ID_DESTINO")
 
 NOME_ABA_ORIGEM = "Presidência 2 - ROADMAP"
 NOME_ABA_DESTINO = "NomeDaAbaDestino"
