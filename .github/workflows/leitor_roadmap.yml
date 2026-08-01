@@ -1,9 +1,9 @@
 name: Extrator Roadmap
 
 on:
-  workflow_dispatch:        # permite rodar manualmente
+  workflow_dispatch:
   schedule:
-    - cron: '0 8 * * *'     # exemplo: todo dia às 8h (UTC)
+    - cron: '0 8 * * *'
 
 jobs:
   run-extrator:
@@ -26,3 +26,6 @@ jobs:
 
       - name: Rodar script
         run: python extrator_roadmap.py
+        env:
+          ID_PASTA_ROADMAPS: ${{ secrets.ID_PASTA_ROADMAPS }}
+          ID_DESTINO: ${{ secrets.ID_DESTINO }}
